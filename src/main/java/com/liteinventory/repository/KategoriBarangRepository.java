@@ -1,13 +1,15 @@
 package com.liteinventory.repository;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import com.liteinventory.model.KategoriBarang;
 
-public interface KategoriBarangRepository extends CrudRepository<KategoriBarang, String> {
+public interface KategoriBarangRepository extends JpaRepository<KategoriBarang, String> {
 
 	@Override
 	@Query
-	Iterable<KategoriBarang> findAll();
+	List<KategoriBarang> findAll();
 }

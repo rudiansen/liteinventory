@@ -3,11 +3,13 @@ package com.liteinventory.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name = "barang")
+@NamedQuery(name = "Barang.findAll", query="select b from Barang b order by b.kdBarang")
 public class Barang {	
 	
 	@Id

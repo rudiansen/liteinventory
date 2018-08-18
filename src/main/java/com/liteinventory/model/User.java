@@ -1,7 +1,5 @@
 package com.liteinventory.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,23 +9,27 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class User implements Serializable {
-
-	private static final long serialVersionUID = 112888178188L;
+public class User {	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idUser;
+	
 	@Column(name="ID_PERUSAHAAN", nullable=false, length=12)
 	private String idPerusahaan;
+	
 	@Column(name="USERNAME", nullable=false, length=20)
 	private String username;
+	
 	@Column(name="PASSWORD", nullable=false, length=50)
 	private String password;
+	
 	@Column(name="NAMA", nullable=false, length=30)
 	private String nama;
+		
 	@Column(name="EMAIL", nullable=false, length=50)
 	private String email;
+	
 	@Column(name="STATUS", nullable=false, length=1)
 	private char status;		
 	

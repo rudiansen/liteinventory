@@ -1,5 +1,6 @@
 package com.liteinventory.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class SatuanServiceImpl implements SatuanService {
 	}
 
 	@Override	
-	public Iterable<Satuan> listAllSatuan() {
+	public List<Satuan> listAllSatuan() {
 
 		return repo.findAll();
 	}

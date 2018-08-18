@@ -1,5 +1,6 @@
 package com.liteinventory.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -36,11 +37,11 @@ public class BarangServiceImpl implements BarangService {
 	}
 
 	@Override
-	public Iterable<Barang> listAllBarang() {
+	public List<Barang> listAllBarang() {
 
-		Iterable<KategoriBarang> jenisBarangs = kbRepo.findAll();
-		Iterable<Satuan> satuans = satRepo.findAll();
-		Iterable<Barang> barangs = brgRepo.findAll();
+		List<KategoriBarang> jenisBarangs = kbRepo.findAll();
+		List<Satuan> satuans = satRepo.findAll();
+		List<Barang> barangs = brgRepo.findAll();
 		
 		if (barangs.iterator().hasNext()) {
 			// Getting Jenis Barang, Satuan description for each Barang
