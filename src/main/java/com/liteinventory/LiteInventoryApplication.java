@@ -1,4 +1,4 @@
-package com.liteinvntory.liteinventory;
+package com.liteinventory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

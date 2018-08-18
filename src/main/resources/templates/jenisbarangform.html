@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Lite Inventory</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+	<div class="row-fluid">
+    	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
+    	
+    	<div class="span10">
+    		<form class="form-horizontal" th:object="${jenisbarang}" th:action="@{/jenisbarang}" method="post">
+			  <h3>Jenis Barang</h3>
+			  <div class="control-group">
+			    <label class="control-label" for="kdKategori">Kode</label>
+			    <div class="controls">
+			    	<input type="text" th:field="*{kdKategori}"/>			      
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="nama">Nama</label>
+			    <div class="controls">
+			      <input type="text" th:field="*{nama}"/>
+			    </div>
+			  </div>			  
+			  <div class="control-group">
+			    <div class="controls">			          
+			      <button type="submit" class="btn btn-primary">Save</button>
+			    </div>
+			  </div>
+			</form>
+    	</div>
+    </div>
+        
+</div>
+
+</body>
+</html>

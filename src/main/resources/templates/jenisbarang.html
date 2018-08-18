@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Lite Inventory</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row-fluid">
+    	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
+    	
+    	<div class="span10">					
+    		<div th:if="${not #lists.isEmpty(jenisbarangs)}">
+		        <h3>Jenis Barang</h3>
+		        <p><a href="#" th:href="@{/jenisbarang/new}">Add</a></p>
+		        <table class="table table-striped">
+		            <tr>               
+		            	<th>Kode</th>
+		                <th>Jenis Barang</th>              
+		                <th>Edit</th>
+		                <th>Delete</th>
+		            </tr>
+		            <tr th:each="jenis : ${jenisbarangs}">
+		            	<td th:text="${jenis.kdKategori}">Kode</td>                
+		                <td th:text="${jenis.nama}">Jenis Barang</td>                            
+		                <td><a th:href="${'/jenisbarang/edit/' + jenis.kdKategori}">Edit</a></td>
+		                <td><a th:href="${'/jenisbarang/delete/' + jenis.kdKategori}">Delete</a></td>
+		            </tr>
+		        </table>
+		
+		    </div>
+    	</div>
+    </div>    
+</div>
+
+</body>
+</html>

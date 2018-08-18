@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link href="../../static/css/style.css" th:href="@{css/style.css}" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+
+    <div th:fragment="left-menu">    	
+
+      <div class="span2">
+        	<ul class="nav nav-list">
+			  <li class="nav-header">Home</li>
+			  <li><a href="/index"><i class="icon-home"></i> Home</a></li>
+			  <li><a href="#"><i class="icon-book"></i> Daftar Masuk</a></li>
+			  <li><a href="#"><i class="icon-pencil"></i> Daftar Keluar</a></li>
+			  <li class="divider"></li>
+			  <li class="nav-header"> Laporan</li>
+			  <li><a href="#"> FIFO Periodik</a></li>
+			  <li><a href="#"> Rekap</a></li>
+			  <li class="divider"></li>
+			  <li class="nav-header">Referensi</li>
+			  <li><a href="/barang"> Barang</a></li>
+			  <li><a href="#"> Kartu Barang</a></li>
+			  <li><a href="/jenisbarang"> Jenis Barang</a></li>
+			</ul>
+      </div>
+	      	 
+	</div>
+
+</body>
+</html>
