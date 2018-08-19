@@ -19,13 +19,14 @@
 			  <div class="control-group">
 			    <label class="control-label" for="kdKategori">Kode</label>
 			    <div class="controls">
-			    	<input type="text" th:field="*{kdKategori}"/>			      
+			    	<input type="text" maxLength="5" th:field="*{kdKategori}"/>
+			    	<p class="text-error" th:if="${#fields.hasErrors('kdKategori')}" th:errors="*{kdKategori}">Error</p>			      
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="nama">Nama</label>
 			    <div class="controls">
-			      <input type="text" th:field="*{nama}"/>
+			      <input type="text" maxLength="60" th:field="*{nama}"/>
 			    </div>
 			  </div>			  
 			  <div class="control-group">

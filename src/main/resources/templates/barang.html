@@ -17,6 +17,16 @@
     		<div th:if="${not #lists.isEmpty(barangs)}">
 		        <h3>Daftar Barang</h3>
 		        <p><a href="#" th:href="@{/barang/new}">Add</a></p>
+		        
+		        <div class="alert alert-success" th:if="${success_message != null}">
+				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+				  	<strong>Success!</strong> Barang has been saved successfully.
+				</div>				
+				<div class="alert alert-error" th:if="${error_message != null}">
+				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+				  	<strong>Error!</strong> Barang is failed to be saved.
+				</div>
+				
 		        <table class="table table-striped">
 		            <tr>               
 		            	<th>Kode</th>

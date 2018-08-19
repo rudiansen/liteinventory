@@ -1,8 +1,11 @@
 package com.liteinventory.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +45,13 @@ public class KategoriBarangController {
 	}
 	
 	@RequestMapping(value = "jenisbarang", method = RequestMethod.POST)
-	public String save(KategoriBarang kategoriBarang) {
+	public String save(@Valid KategoriBarang kategoriBarang, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {			
+			model.addAttribute("jenisbarang", kategoriBarang);
+			
+			return "jenisbarangform";
+		}
+		
 		kbService.save(kategoriBarang);
 		
 		return "redirect:/jenisbarang";

@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "barang")
@@ -14,23 +15,24 @@ public class Barang {
 	
 	@Id
 	@Column(name="KD_BARANG", nullable=false, length=6)
+	@Size(min=1, max=6)
 	private String kdBarang;
 	
 	@Column(name="ID_PERUSAHAAN", nullable=false, length=12)
 	private String idPerusahaan;
 	
-	@Column(name="NAMA", nullable=false, length=60)
+	@Column(name="NAMA", nullable=false, length=60)	
 	private String nama;
 	
 	@Column(name="KD_KATEGORI", nullable=false, length=5)
 	private String kdKategori;
-	
+		
 	@Column(name="MERK", nullable=true, length=20)
 	private String merk;
-	
+		
 	@Column(name="TIPE", nullable=true, length=20)
 	private String tipe;
-	
+		
 	@Column(name="UKURAN", nullable=true, length=20)
 	private String ukuran;
 	

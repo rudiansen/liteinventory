@@ -1,8 +1,13 @@
 package com.liteinventory.controller;
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,9 +39,22 @@ public class BarangController {
 		this.satService = satService;
 	}
 
-	@RequestMapping(value = "barang", method = RequestMethod.GET)
-	public String list(Model model) {				
+	@RequestMapping(value = {"barang", "barang/{message}"}, method = RequestMethod.GET)
+	public String list(@PathVariable Optional<String> message, Model model) {				
 		model.addAttribute("barangs", barangService.listAllBarang());
+		
+		if (message.isPresent()) {
+			switch (message.get()) {
+				case "success":
+					model.addAttribute("success_message", true);
+					break;
+				case "error":
+					model.addAttribute("error_message", true);
+					break;
+				default:
+					break;
+			}
+		}
 		
 		return "barang";
 	}
@@ -60,13 +78,21 @@ public class BarangController {
 	}
 	
 	@RequestMapping(value = "barang", method = RequestMethod.POST)
-	public String save(Barang barang) {
+	public String save(@Valid Barang barang, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("jenisbarangs", kbService.listAllKategoriBarang());
+			model.addAttribute("satuans", satService.listAllSatuan());
+			
+			return "barangform";
+		}
+		
 		// Hardcoded for temporary
 		barang.setIdPerusahaan("1");
 		
 		barangService.save(barang);
 		
-		return "redirect:/barang";
+		return "redirect:/barang/success";
 	}
 	
 	@RequestMapping("barang/delete/{kdBarang}")

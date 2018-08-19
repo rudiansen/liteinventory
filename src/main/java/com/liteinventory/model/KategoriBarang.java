@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "kategori_barang")
@@ -14,6 +15,7 @@ public class KategoriBarang {
 
 	@Id	
 	@Column(name = "KD_KATEGORI", length = 5, nullable = false)
+	@Size(min=1, max=5)
 	private String kdKategori;
 	
 	@NotNull

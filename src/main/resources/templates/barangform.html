@@ -19,13 +19,14 @@
 			  <div class="control-group">
 			    <label class="control-label" for="kdBarang">Kode</label>
 			    <div class="controls">
-			    	<input type="text" th:field="*{kdBarang}"/>			      
+			    	<input type="text" maxLength="6" th:field="*{kdBarang}"/> 
+			    	<p class="text-error" th:if="${#fields.hasErrors('kdBarang')}" th:errors="*{kdBarang}">Error</p>			    				     
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="nama">Nama</label>
 			    <div class="controls">
-			      <input type="text" th:field="*{nama}"/>
+			      <input type="text" maxLength="60" th:field="*{nama}"/>			      
 			    </div>
 			  </div>
 			  <div class="control-group">
@@ -41,19 +42,19 @@
 			  <div class="control-group">
 			    <label class="control-label" for="merk">Merk</label>
 			    <div class="controls">
-			      <input type="text" th:field="*{merk}"/>
+			      <input type="text" maxLength="20" th:field="*{merk}"/>			      
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="tipe">Tipe</label>
 			    <div class="controls">
-			      <input type="text" th:field="*{tipe}"/>
+			      <input type="text" maxLength="20" th:field="*{tipe}"/>			      
 			    </div>
 			  </div>
 			  <div class="control-group">
 			    <label class="control-label" for="ukuran">Ukuran</label>
 			    <div class="controls">
-			      <input type="text" th:field="*{ukuran}"/>
+			      <input type="text" maxLength="20" th:field="*{ukuran}"/>			      
 			    </div>
 			  </div>
 			  <div class="control-group">
