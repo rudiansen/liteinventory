@@ -1,11 +1,15 @@
 package com.liteinventory.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class DaftarMasukDetilId {
+public class DaftarMasukDetilId implements Serializable {
 	
+	private static final long serialVersionUID = 1128178271871L;
+
 	@Column(name="ID_MASUK", nullable=false)
 	private long idMasuk;
 	

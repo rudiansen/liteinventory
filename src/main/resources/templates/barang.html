@@ -14,9 +14,10 @@
     	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
     	
     	<div class="span10">					
-    		<div th:if="${not #lists.isEmpty(barangs)}">
-		        <h3>Daftar Barang</h3>
-		        <p><a href="#" th:href="@{/barang/new}">Add</a></p>
+    		<h3>Daftar Barang</h3>
+    		<p><a href="#" th:href="@{/barang/new}">Add</a></p>
+    		
+    		<div th:if="${not #lists.isEmpty(barangs)}">		       
 		        
 		        <div class="alert alert-success" th:if="${success_message != null}">
 				  	<button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.liteinventory.model.Rkb;
 import com.liteinventory.repository.RkbRepository;
 
+@Service
 public class RkbServiceImpl implements RkbService {
 
 	private RkbRepository rkbRepo;

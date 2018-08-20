@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Lite Inventory</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row-fluid">
+    	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
+    	
+    	<div class="span10">
+    		<h3>Daftar Masuk</h3>
+    		<p><a href="#" th:href="@{/daftarmasuk/new}">Add</a></p>
+    		
+    		<div th:if="${not #lists.isEmpty(daftarmasuks)}">		        
+		        
+		        <div class="alert alert-success" th:if="${success_message != null}">
+				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+				  	<strong>Success!</strong> Daftar Masuk has been saved successfully.
+				</div>				
+				<div class="alert alert-error" th:if="${error_message != null}">
+				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+				  	<strong>Error!</strong> Daftar Masuk is failed to be saved.
+				</div>
+				
+		        <table class="table table-striped">
+		            <tr>               
+		            	<th>No.</th>
+		                <th>Tanggal</th>
+		                <th>Dari</th>
+		                <th>No. Faktur</th>
+		                <th>Tanggal Faktur</th>		                         
+		                <th>Edit</th>
+		                <th>Delete</th>
+		            </tr>
+		            <tr th:each="daftarmasuk, iStat : ${daftarmasuks}">
+		            	<td th:text="${iStat.index+1}">No.</td>                
+		                <td th:text="${daftarmasuk.tanggal}">Tanggal</td>
+		                <td th:text="${daftarmasuk.dari}">Dari</td>
+		                <td th:text="${daftarmasuk.noFaktur}">No. Faktur</td>
+		                <td th:text="${daftarmasuk.tanggalFaktur}">Tanggal Faktur</td>		                                         
+		                <td><a th:href="${'/daftarmasuk/edit/' + daftarmasuk.idMasuk}">Edit</a></td>
+		                <td><a th:href="${'/daftarmasuk/delete/' + daftarmasuk.idMasuk}">Delete</a></td>
+		            </tr>
+		        </table>
+		
+		    </div>
+    	</div>
+    </div>    
+</div>
+
+</body>
+</html>

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.liteinventory.model.DaftarMasuk;
 import com.liteinventory.repository.DaftarMasukRepository;
 
+@Service
 public class DaftarMasukServiceImpl implements DaftarMasukService {
 
 	private DaftarMasukRepository dmRepo;
