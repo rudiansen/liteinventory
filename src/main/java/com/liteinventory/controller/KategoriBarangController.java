@@ -32,22 +32,21 @@ public class KategoriBarangController {
 	
 	@RequestMapping("jenisbarang/edit/{kdKategori}")
 	public String edit(@PathVariable String kdKategori, Model model) {
-		model.addAttribute("jenisbarang", kbService.getKategoriBarangById(kdKategori));
+		model.addAttribute("kategoriBarang", kbService.getKategoriBarangById(kdKategori));
 		
 		return "jenisbarangform";
 	}
 	
 	@RequestMapping("jenisbarang/new")
 	public String newKategoriBarang(Model model) {
-		model.addAttribute("jenisbarang", new KategoriBarang());
+		model.addAttribute("kategoriBarang", new KategoriBarang());
 		
 		return "jenisbarangform";
 	}
 	
 	@RequestMapping(value = "jenisbarang", method = RequestMethod.POST)
-	public String save(@Valid KategoriBarang kategoriBarang, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {			
-			model.addAttribute("jenisbarang", kategoriBarang);
+	public String save(@Valid KategoriBarang kategoriBarang, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
 			
 			return "jenisbarangform";
 		}
