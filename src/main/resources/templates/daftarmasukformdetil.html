@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Lite Inventory</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+	<div class="row-fluid">
+    	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
+    	
+    	<div class="span10">
+    		<form class="form-horizontal" th:object="${daftarMasukDetil}" th:action="@{/daftarmasuk}" method="post">
+    			<h4><!-- <a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt;  --> Barang</h4>
+    			    			 
+				  <div class="control-group">
+				    <label class="control-label" for="kdBarang">Kode Barang</label>
+				    <div class="controls">				    	
+				    	<input type="text" th:field="*{kdBarang}"/> 				    					    	 			    				    				   
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="namaBarang">Nama</label>
+				    <div class="controls">
+				      <input type="text" maxLength="30" th:field="*{namaBarang}"/>			      
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="satuan">Satuan</label>
+				    <div class="controls">
+				      <select th:field="*{satuan}">
+				      	<option th:each="satuan : ${satuans}" 
+				      		th:value="${satuan.kdSatuan}"
+				      		th:text="${satuan.nama}"></option>
+				      </select>	
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="jumlah">Jumlah</label>
+				    <div class="controls">
+				      <input type="text" maxLength="50" th:field="*{jumlah}"/>			      
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="hargaSatuan">Harga Satuan</label>
+				    <div class="controls">
+				      <input type="text" maxLength="50" th:field="*{hargaSatuan}"/>			      
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="totalHarga">Jumlah Harga</label>
+				    <div class="controls">
+				      <input type="text" maxLength="50" th:field="*{totalHarga}"/>			      
+				    </div>
+				  </div>	 		  
+				  <div class="control-group">
+				    <div class="controls">			          
+				      <button type="submit" class="btn btn-primary">Save</button>				      			    		    
+				    </div>
+				</div>
+			      			
+			</form>
+			
+			<div th:if="${not #lists.isEmpty(daftarMasukDetils)}">		       		        			       
+		        <table class="table table-striped">
+		            <tr>
+		            	<th>No.</th>               
+		            	<th>Kode Barang</th>
+		                <th>Nama</th>
+		                <th>Satuan</th>
+		                <th>Jumlah</th>
+		                <th>Harga Satuan</th>
+		                <th>Jumlah Harga</th>			                          
+		                <th>Edit</th>
+		                <th>Delete</th>
+		            </tr>
+		            <tr th:each="detil, row : ${daftarMasukDetils}">
+		            	<td th:text="${row.index+1}">No.</td>
+		            	<td th:text="${detil.kdBarang}">Kode Barang</td>                
+		                <td th:text="${detil.nama}">Nama</td>
+		                <td th:text="${detil.satuan}">Satuan</td>
+		                <td th:text="${detil.jumlah}">Jumlah</td>
+		                <td th:text="${detil.hargaSatuan}">Harga Satuan</td>
+		                <td th:text="${detil.jumlahHarga}">Jumlah Harga</td>			                                        
+		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/edit/' + detil.id.noItem}">Edit</a></td>
+		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/delete/' + detil.id.noItem}">Delete</a></td>
+		            </tr>
+		        </table>
+		
+		    </div>
+			        		
+    	</div>
+    </div>
+        
+</div>
+
+	<script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script>
+	    $('.input-append.date').datepicker({});
+    </script>
+    
+</body>
+</html>

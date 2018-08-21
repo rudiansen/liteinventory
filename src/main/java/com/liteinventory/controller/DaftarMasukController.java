@@ -1,6 +1,8 @@
 package com.liteinventory.controller;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.liteinventory.model.DaftarMasuk;
+import com.liteinventory.model.DaftarMasukDetil;
 import com.liteinventory.service.DaftarMasukService;
 
 @Controller
@@ -47,6 +50,22 @@ public class DaftarMasukController {
 		model.addAttribute("daftarMasuk", dmService.getDaftarMasukById(idMasuk).get());
 		
 		return "daftarmasukform";
+	}
+	
+	@RequestMapping(value = {"daftarmasuk/{idMasuk}/detil", "daftarmasuk/{idMasuk}/detil/{noItem}"})
+	public String editDetil(@PathVariable Long idMasuk, @PathVariable Optional<Integer> noItem, Model model) {
+		Collection<DaftarMasukDetil> dmDetils = dmService.getDaftarMasukById(idMasuk).get().getDaftarMasukDetil();
+		
+		model.addAttribute("daftarMasukDetils", dmDetils);
+		if (noItem.isPresent()) {
+			model.addAttribute("daftarMasukDetil", dmDetils.stream()
+					.filter(d -> d.getId().getNoItem() == noItem.get())
+					.findFirst());
+		} else {
+			model.addAttribute("daftarMasukDetil", new DaftarMasukDetil());
+		}
+		
+		return "daftarmasukformdetil";
 	}
 	
 	@RequestMapping(value = "daftarmasuk", method = RequestMethod.POST)
