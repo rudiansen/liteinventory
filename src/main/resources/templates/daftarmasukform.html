@@ -16,12 +16,17 @@
     	<div class="span10">
     		<h3>Daftar Masuk</h3>
     		
-    		<form class="form-horizontal" th:object="${daftarmasuk}" th:action="@{/daftarmasuk}" method="post">			  
+    		<form class="form-horizontal" th:object="${daftarMasuk}" th:action="@{/daftarmasuk}" method="post">
+    		  <input type="hidden" th:field="*{idMasuk}"/>
+    		  <input type="hidden" th:field="*{idPerusahaan}"/>
+              <input type="hidden" th:field="*{serverDatetime}"/>
+            			  
 			  <div class="control-group">
 			    <label class="control-label" for="tanggal">Tanggal</label>
 			    <div class="controls">
 			    	<div class="input-append date">
-			    		<input type="text" th:field="*{tanggal}"/> <span class="add-on"><i class="icon-calendar"></i></span>
+			    		<input type="text" th:field="*{tanggal}" th:text="${#dates.format(daftarMasuk.tanggal, 'MM/dd/yyyy')}"/> 
+			    		<span class="add-on"><i class="icon-calendar"></i></span>
 			    	</div>			    	 			    				    				    
 			    </div>
 			  </div>
@@ -41,7 +46,8 @@
 			    <label class="control-label" for="tanggalFaktur">Tanggal Faktur</label>
 			    <div class="controls">			      
 			    	<div class="input-append date">
-			    		<input type="text" th:field="*{tanggalFaktur}"/> <span class="add-on"><i class="icon-calendar"></i></span>
+			    		<input type="text" th:field="*{tanggalFaktur}" th:text="${#dates.format(daftarMasuk.tanggalFaktur, 'MM/dd/yyyy')}"/> 
+			    		<span class="add-on"><i class="icon-calendar"></i></span>
 			    	</div>			    	 			    				    				    
 			    </div>			    
 			  </div>			 		  

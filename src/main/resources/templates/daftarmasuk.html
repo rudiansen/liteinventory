@@ -17,7 +17,7 @@
     		<h3>Daftar Masuk</h3>
     		<p><a href="#" th:href="@{/daftarmasuk/new}">Add</a></p>
     		
-    		<div th:if="${not #lists.isEmpty(daftarmasuks)}">		        
+    		<div th:if="${not #lists.isEmpty(daftarMasuks)}">		        
 		        
 		        <div class="alert alert-success" th:if="${success_message != null}">
 				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -38,14 +38,14 @@
 		                <th>Edit</th>
 		                <th>Delete</th>
 		            </tr>
-		            <tr th:each="daftarmasuk, iStat : ${daftarmasuks}">
+		            <tr th:each="daftarMasuk, iStat : ${daftarMasuks}">
 		            	<td th:text="${iStat.index+1}">No.</td>                
-		                <td th:text="${daftarmasuk.tanggal}">Tanggal</td>
-		                <td th:text="${daftarmasuk.dari}">Dari</td>
-		                <td th:text="${daftarmasuk.noFaktur}">No. Faktur</td>
-		                <td th:text="${daftarmasuk.tanggalFaktur}">Tanggal Faktur</td>		                                         
-		                <td><a th:href="${'/daftarmasuk/edit/' + daftarmasuk.idMasuk}">Edit</a></td>
-		                <td><a th:href="${'/daftarmasuk/delete/' + daftarmasuk.idMasuk}">Delete</a></td>
+		                <td th:text="${#dates.format(daftarMasuk.tanggal, 'MM/dd/yyyy')}">Tanggal</td>
+		                <td th:text="${daftarMasuk.dari}">Dari</td>
+		                <td th:text="${daftarMasuk.noFaktur}">No. Faktur</td>
+		                <td th:text="${#dates.format(daftarMasuk.tanggalFaktur, 'MM/dd/yyyy')}">Tanggal Faktur</td>		                                         
+		                <td><a th:href="${'/daftarmasuk/edit/' + daftarMasuk.idMasuk}">Edit</a></td>
+		                <td><a th:href="${'/daftarmasuk/delete/' + daftarMasuk.idMasuk}">Delete</a></td>
 		            </tr>
 		        </table>
 		

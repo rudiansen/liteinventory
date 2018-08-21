@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="daftar_masuk")
 @NamedQuery(name = "DaftarMasuk.findAll", query = "SELECT dm FROM DaftarMasuk dm order by dm.serverDatetime DESC")
@@ -36,6 +38,7 @@ public class DaftarMasuk {
 	private String idPerusahaan;
 	
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@Column(name="TANGGAL", nullable=false)
 	private Date tanggal;
 	
@@ -46,6 +49,7 @@ public class DaftarMasuk {
 	private String noFaktur;
 	
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@Column(name="TANGGAL_FAKTUR", nullable=true)
 	private Date tanggalFaktur;	
 	

@@ -11,7 +11,7 @@ public interface DaftarMasukService {
 	
 	Optional<DaftarMasuk> getDaftarMasukById(Long idMasuk);
 	
-	DaftarMasuk save(DaftarMasuk daftarMasuk);
+	DaftarMasuk save(DaftarMasuk daftarMasuk);	
 	
 	void delete(Long idMasuk);
 }
