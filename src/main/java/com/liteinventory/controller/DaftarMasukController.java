@@ -34,7 +34,10 @@ public class DaftarMasukController {
 	
 	@RequestMapping("daftarmasuk/new")
 	public String newDaftarMasuk(Model model) {
-		model.addAttribute("daftarMasuk", new DaftarMasuk());
+		DaftarMasuk newDM = new DaftarMasuk();
+		newDM.setServerDatetime(new Timestamp(System.currentTimeMillis()));
+		
+		model.addAttribute("daftarMasuk", newDM);
 		
 		return "daftarmasukform";
 	}
@@ -53,7 +56,7 @@ public class DaftarMasukController {
 			return "daftarmasukform";
 		}					
 		
-		if (daftarMasuk.getIdMasuk() == -1) {
+		if (daftarMasuk.getIdMasuk() == 0) {
 			// Hardcoded for temporary
 			daftarMasuk.setIdPerusahaan("1");
 			daftarMasuk.setServerDatetime(new Timestamp(System.currentTimeMillis()));

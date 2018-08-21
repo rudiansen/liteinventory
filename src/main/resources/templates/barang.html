@@ -29,10 +29,11 @@
 				</div>
 				
 		        <table class="table table-striped">
-		            <tr>               
-		            	<th>Kode</th>
+		            <tr>
+		            	<th>No.</th>               
+		            	<th>Kode Barang</th>
 		                <th>Nama</th>
-		                <th>Jenis Barang</th>
+		                <th>Jenis</th>
 		                <th>Merk</th>
 		                <th>Tipe</th>
 		                <th>Ukuran</th>
@@ -40,10 +41,11 @@
 		                <th>Edit</th>
 		                <th>Delete</th>
 		            </tr>
-		            <tr th:each="barang : ${barangs}">
-		            	<td th:text="${barang.kdBarang}">Kode</td>                
+		            <tr th:each="barang, row : ${barangs}">
+		            	<td th:text="${row.index+1}">No.</td>
+		            	<td th:text="${barang.kdBarang}">Kode Barang</td>                
 		                <td th:text="${barang.nama}">Nama</td>
-		                <td th:text="${barang.jenisBarang}">Jenis Barang</td>
+		                <td th:text="${barang.jenisBarang}">Jenis</td>
 		                <td th:text="${barang.merk}">Merk</td>
 		                <td th:text="${barang.tipe}">Tipe</td>
 		                <td th:text="${barang.ukuran}">Ukuran</td>

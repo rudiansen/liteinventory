@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="daftar_masuk_detil")
 public class DaftarMasukDetil {
@@ -54,6 +56,7 @@ public class DaftarMasukDetil {
 	private String noBuktiTerima;
 	
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	@Column(name="TANGGAL_BUKTI_TERIMA", nullable=true)
 	private Date tanggalBuktiTerima;
 	

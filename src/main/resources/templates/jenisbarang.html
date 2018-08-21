@@ -20,13 +20,15 @@
     		<div th:if="${not #lists.isEmpty(jenisbarangs)}">		        
 		        
 		        <table class="table table-striped">
-		            <tr>               
+		            <tr>
+		            	<th>No.</th>               
 		            	<th>Kode</th>
 		                <th>Jenis Barang</th>              
 		                <th>Edit</th>
 		                <th>Delete</th>
 		            </tr>
-		            <tr th:each="jenis : ${jenisbarangs}">
+		            <tr th:each="jenis, row : ${jenisbarangs}">
+		            	<td th:text="${row.index+1}">No.</td> 
 		            	<td th:text="${jenis.kdKategori}">Kode</td>                
 		                <td th:text="${jenis.nama}">Jenis Barang</td>                            
 		                <td><a th:href="${'/jenisbarang/edit/' + jenis.kdKategori}">Edit</a></td>

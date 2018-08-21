@@ -38,8 +38,8 @@
 		                <th>Edit</th>
 		                <th>Delete</th>
 		            </tr>
-		            <tr th:each="daftarMasuk, iStat : ${daftarMasuks}">
-		            	<td th:text="${iStat.index+1}">No.</td>                
+		            <tr th:each="daftarMasuk, row : ${daftarMasuks}">
+		            	<td th:text="${row.index+1}">No.</td>                
 		                <td th:text="${#dates.format(daftarMasuk.tanggal, 'MM/dd/yyyy')}">Tanggal</td>
 		                <td th:text="${daftarMasuk.dari}">Dari</td>
 		                <td th:text="${daftarMasuk.noFaktur}">No. Faktur</td>
