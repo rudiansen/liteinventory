@@ -14,15 +14,9 @@
     	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
     	
     	<div class="span10">
-    		<form class="form-horizontal" th:object="${daftarMasukDetil}" th:action="@{/daftarmasuk}" method="post">
+    		<form class="form-horizontal" th:object="${daftarMasukDetil}" th:action="@{/daftarmasukdetil}" method="post">
     			<h4><!-- <a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt;  --> Barang</h4>
-    			    			 
-				  <div class="control-group">
-				    <label class="control-label" for="kdBarang">Kode Barang</label>
-				    <div class="controls">				    	
-				    	<input type="text" th:field="*{kdBarang}"/> 				    					    	 			    				    				   
-				    </div>
-				  </div>
+    			      			    			 				  
 				  <div class="control-group">
 				    <label class="control-label" for="namaBarang">Nama</label>
 				    <div class="controls">

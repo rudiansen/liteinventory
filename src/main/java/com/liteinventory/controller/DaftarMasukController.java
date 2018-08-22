@@ -16,18 +16,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.liteinventory.model.DaftarMasuk;
 import com.liteinventory.model.DaftarMasukDetil;
+import com.liteinventory.model.DaftarMasukDetilId;
+import com.liteinventory.service.BarangService;
 import com.liteinventory.service.DaftarMasukService;
+import com.liteinventory.service.KategoriBarangService;
+import com.liteinventory.service.SatuanService;
 
 @Controller
 public class DaftarMasukController {
 
 	private DaftarMasukService dmService;
+	private BarangService barangService;
+	private KategoriBarangService kbService;
+	private SatuanService satService;
 
 	@Autowired
 	public void setDmService(DaftarMasukService dmService) {
 		this.dmService = dmService;
 	}
 	
+	@Autowired
+	public void setKbService(KategoriBarangService kbService) {
+		this.kbService = kbService;
+	}
+
+	@Autowired
+	public void setSatService(SatuanService satService) {
+		this.satService = satService;
+	}
+	
+	@Autowired
+	public void setBarangService(BarangService barangService) {
+		this.barangService = barangService;
+	}
+
 	@RequestMapping(value = "daftarmasuk", method = RequestMethod.GET)
 	public String list(Model model) {
 		model.addAttribute("daftarMasuks", dmService.listAllDaftarMasuk());
@@ -62,8 +84,19 @@ public class DaftarMasukController {
 					.filter(d -> d.getId().getNoItem() == noItem.get())
 					.findFirst());
 		} else {
-			model.addAttribute("daftarMasukDetil", new DaftarMasukDetil());
+			DaftarMasukDetil dmDetil = new DaftarMasukDetil();
+			DaftarMasukDetilId id = new DaftarMasukDetilId();
+			id.setIdMasuk(idMasuk);
+			id.setNoItem(1);
+			
+			dmDetil.setId(id);
+			
+			model.addAttribute("daftarMasukDetil", dmDetil);
 		}
+		
+		model.addAttribute("barangs", barangService.listAllBarang());
+		model.addAttribute("jenisbarangs", kbService.listAllKategoriBarang());
+		model.addAttribute("satuans", satService.listAllSatuan());
 		
 		return "daftarmasukformdetil";
 	}
@@ -84,6 +117,23 @@ public class DaftarMasukController {
 		dmService.save(daftarMasuk);
 		
 		return "redirect:/daftarmasuk";
+	}
+	
+	@RequestMapping(value = "daftarmasukdetil", method = RequestMethod.POST)
+	public String saveDetil(@Valid DaftarMasukDetil daftarMasukDetil, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			
+			return "daftarmasukformdetil";
+		}
+		
+		DaftarMasuk dm = dmService.getDaftarMasukById(daftarMasukDetil.getId().getIdMasuk()).get();
+		int count = dm.getDaftarMasukDetil().size();
+		
+		daftarMasukDetil.getId().setNoItem(count);
+		
+		dmService.saveDetil(daftarMasukDetil);
+		
+		return "redirect:/daftarmasuk/"+ daftarMasukDetil.getId().getIdMasuk() + "/detil/" + daftarMasukDetil.getId().getNoItem();
 	}
 	
 	@RequestMapping("daftarmasuk/delete/{idMasuk}")

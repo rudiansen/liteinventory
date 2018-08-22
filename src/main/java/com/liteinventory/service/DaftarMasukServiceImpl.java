@@ -7,17 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liteinventory.model.DaftarMasuk;
+import com.liteinventory.model.DaftarMasukDetil;
+import com.liteinventory.repository.DaftarMasukDetilRepository;
 import com.liteinventory.repository.DaftarMasukRepository;
 
 @Service
 public class DaftarMasukServiceImpl implements DaftarMasukService {
 
 	private DaftarMasukRepository dmRepo;
+	private DaftarMasukDetilRepository dmdRepo;
 		
 	@Autowired
 	public void setDmRepo(DaftarMasukRepository dmRepo) {
 		this.dmRepo = dmRepo;
 	}
+
+	@Autowired
+	public void setDmdRepo(DaftarMasukDetilRepository dmdRepo) {
+		this.dmdRepo = dmdRepo;
+	}
+
 
 	@Override
 	public List<DaftarMasuk> listAllDaftarMasuk() {
@@ -41,6 +50,12 @@ public class DaftarMasukServiceImpl implements DaftarMasukService {
 	public void delete(Long idMasuk) {
 		dmRepo.deleteById(idMasuk);
 		
+	}
+
+	@Override
+	public DaftarMasukDetil saveDetil(DaftarMasukDetil daftarMasukDetil) {
+
+		return dmdRepo.save(daftarMasukDetil);
 	}
 
 }
