@@ -15,8 +15,9 @@
     	
     	<div class="span10">
     		<form class="form-horizontal" th:object="${daftarMasukDetil}" th:action="@{/daftarmasukdetil}" method="post">
-    			<h4><!-- <a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt;  --> Barang</h4>    			     
-    			  <input type="hidden" th:field="*{id}"/>
+    			<h4><!-- <a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt;  --> Barang</h4>    			      			     
+    			  <input type="hidden" th:value="*{id.idMasuk}" th:attr="name='idMasuk'"/>
+    			  <input type="hidden" th:value="*{id.noItem}" th:attr="name='noItem'"/>
     			   			    			 				  
 				  <div class="control-group">
 				    <label class="control-label" for="namaBarang">Nama</label>
