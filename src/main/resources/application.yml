@@ -6,12 +6,12 @@ spring:
       driverClassName: org.h2.Driver
       url: jdbc:h2:~/db/liteinventory
       username: sa
-      password: 
+      password:
       
    jpa:
       show-sql: true
       hibernate:
-         ddl-auto: update
+         ddl-auto: validate
          
    h2:
       console:

@@ -1,11 +1,8 @@
 package com.liteinventory.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.mapping.FetchProfile;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="user")
@@ -13,6 +10,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_USER")
 	private long idUser;
 	
 	@Column(name="ID_PERUSAHAAN", nullable=false, length=12)
@@ -32,7 +30,11 @@ public class User {
 	
 	@Column(name="STATUS", nullable=false, length=1)
 	private char status;		
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PERUSAHAAN",referencedColumnName = "ID_PERUSAHAAN", insertable = false, updatable = false)
+	private Perusahaan perusahaan;
+
 	public User() {		
 	}
 		
@@ -99,6 +101,13 @@ public class User {
 	
 	public void setStatus(char status) {
 		this.status = status;
-	}	
-			
+	}
+
+	public Perusahaan getPerusahaan() {
+		return perusahaan;
+	}
+
+	public void setPerusahaan(Perusahaan perusahaan) {
+		this.perusahaan = perusahaan;
+	}
 }

@@ -30,9 +30,6 @@ public class DaftarMasukDetil {
 	@Column(name="MERK", nullable=true, length=20)
 	private String merk;
 	
-	@Column(name="TIPE", nullable=true, length=20)
-	private String tipe;	
-	
 	@Column(name="JUMLAH", nullable=true)
 	private BigDecimal jumlah;
 	
@@ -66,13 +63,13 @@ public class DaftarMasukDetil {
 	private String keterangan;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DaftarMasuk.idMasuk", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "ID_MASUK", referencedColumnName = "ID_MASUK", insertable = false, updatable = false)
 	private DaftarMasuk daftarMasuk;
 
 	public DaftarMasukDetil() {		
 	}
 
-	public DaftarMasukDetil(DaftarMasukDetilId id, String kdBarang, String namaBarang, String kdKategori, String merk, String tipe,
+	public DaftarMasukDetil(DaftarMasukDetilId id, String kdBarang, String namaBarang, String kdKategori, String merk,
 			BigDecimal jumlah, BigDecimal hargaSatuan, String mataUang, String satuan, BigDecimal totalHarga,
 			String noBuktiTerima, Date tanggalBuktiTerima, String spkPerjanjian, String tahunPembuatan,
 			String keterangan) {
@@ -81,7 +78,6 @@ public class DaftarMasukDetil {
 		this.namaBarang = namaBarang;
 		this.kdKategori = kdKategori;
 		this.merk = merk;
-		this.tipe = tipe;
 		this.jumlah = jumlah;
 		this.hargaSatuan = hargaSatuan;
 		this.mataUang = mataUang;
@@ -148,20 +144,6 @@ public class DaftarMasukDetil {
 	 */
 	public void setMerk(String merk) {
 		this.merk = merk;
-	}
-
-	/**
-	 * @return the tipe
-	 */
-	public String getTipe() {
-		return tipe;
-	}
-
-	/**
-	 * @param tipe the tipe to set
-	 */
-	public void setTipe(String tipe) {
-		this.tipe = tipe;
 	}
 
 	/**

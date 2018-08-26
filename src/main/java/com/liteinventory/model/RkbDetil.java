@@ -55,7 +55,7 @@ public class RkbDetil {
 	private String keterangan;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Rkb.idRkb", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "ID_RKB", referencedColumnName = "ID_RKB", insertable = false, updatable = false)
 	private Rkb rkb;
 
 	public RkbDetil() {

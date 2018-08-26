@@ -2,6 +2,7 @@ package com.liteinventory.controller;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -82,8 +83,8 @@ public class DaftarMasukController {
 		return "daftarmasukform";
 	}
 	
-	@RequestMapping(value = {"daftarmasuk/{idMasuk}/detil", "daftarmasuk/{idMasuk}/detil/{noItem}"})
-	public String editDetil(@PathVariable Long idMasuk, @PathVariable Optional<Integer> noItem, Model model) {
+	@RequestMapping(value = {"daftarmasuk/{idMasuk}/detil/{noItem}" , "daftarmasuk/{idMasuk}/detil/new"})
+	public String editDetilBarang(@PathVariable Long idMasuk, @PathVariable Optional<Integer> noItem, Model model) {
 		Collection<DaftarMasukDetil> dmDetils = dmService.getDaftarMasukById(idMasuk).get().getDaftarMasukDetil();
 		
 		model.addAttribute("daftarMasukDetils", dmDetils);
@@ -95,7 +96,6 @@ public class DaftarMasukController {
 			DaftarMasukDetil dmDetil = new DaftarMasukDetil();
 			DaftarMasukDetilId id = new DaftarMasukDetilId();
 			id.setIdMasuk(idMasuk);
-			id.setNoItem(1);
 			
 			dmDetil.setId(id);
 			
@@ -108,7 +108,27 @@ public class DaftarMasukController {
 		
 		return "daftarmasukformdetil";
 	}
-	
+
+	@RequestMapping(value = "daftarmasuk/{idMasuk}/detil")
+	public String listDetilBarang(@PathVariable Long idMasuk, Model model) {
+		List<DaftarMasukDetil> dmDetils = dmService.getDaftarMasukById(idMasuk).get().getDaftarMasukDetil();
+
+		model.addAttribute("daftarMasukDetils", dmDetils);
+
+		DaftarMasukDetil dmDetil = new DaftarMasukDetil();
+		DaftarMasukDetilId id = new DaftarMasukDetilId();
+		id.setIdMasuk(idMasuk);
+
+		dmDetil.setId(id);
+
+		model.addAttribute("daftarMasukDetil", dmDetil);
+		model.addAttribute("barangs", barangService.listAllBarang());
+		model.addAttribute("jenisbarangs", kbService.listAllKategoriBarang());
+		model.addAttribute("satuans", satService.listAllSatuan());
+
+		return "daftarmasukdetil";
+	}
+
 	@RequestMapping(value = "daftarmasuk", method = RequestMethod.POST)
 	public String save(@Valid DaftarMasuk daftarMasuk, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -118,7 +138,7 @@ public class DaftarMasukController {
 		
 		if (daftarMasuk.getIdMasuk() == 0) {
 			// Hardcoded for temporary
-			daftarMasuk.setIdPerusahaan("1");
+			daftarMasuk.setIdPerusahaan("GOV022000001");
 			daftarMasuk.setServerDatetime(new Timestamp(System.currentTimeMillis()));
 		}
 		

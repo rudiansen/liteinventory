@@ -88,7 +88,7 @@ public class BarangController {
 		}
 		
 		// Hardcoded for temporary
-		barang.setIdPerusahaan("1");
+		barang.setIdPerusahaan("GOV022000001");
 		
 		barangService.save(barang);
 		

@@ -1,14 +1,12 @@
 package com.liteinventory.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,9 +24,8 @@ public class Perusahaan {
 	@Column(name="STATUS", nullable=false, length=1)
 	private char status;
 	
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="USER", joinColumns = {@JoinColumn(name = "ID_PERUSAHAAN")})
-	private Collection<User> users = new ArrayList<User>();
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "perusahaan")
+	private List<User> users = new ArrayList<User>();
 	
 	public Perusahaan() {		
 	}
@@ -63,11 +60,11 @@ public class Perusahaan {
 		this.status = status;
 	}
 	
-	public Collection<User> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Collection<User> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
