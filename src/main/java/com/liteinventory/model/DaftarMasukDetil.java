@@ -3,22 +3,15 @@ package com.liteinventory.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="daftar_masuk_detil")
 public class DaftarMasukDetil {
-	
-	@Id
+
+	@EmbeddedId
 	@AttributeOverrides({
 		@AttributeOverride(name="idMasuk", column=@Column(name="ID_MASUK")),
 		@AttributeOverride(name="noItem", column=@Column(name="NO_ITEM"))
@@ -30,6 +23,9 @@ public class DaftarMasukDetil {
 	
 	@Column(name="NAMA_BARANG", nullable=false, length=50)
 	private String namaBarang;
+
+	@Column(name="KD_KATEGORI", nullable=false, length=5)
+	private String kdKategori;
 	
 	@Column(name="MERK", nullable=true, length=20)
 	private String merk;
@@ -68,17 +64,22 @@ public class DaftarMasukDetil {
 	
 	@Column(name="KETERANGAN", nullable=true, length=255)
 	private String keterangan;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DaftarMasuk.idMasuk", nullable = false, insertable = false, updatable = false)
+	private DaftarMasuk daftarMasuk;
+
 	public DaftarMasukDetil() {		
 	}
 
-	public DaftarMasukDetil(DaftarMasukDetilId id, String kdBarang, String namaBarang, String merk, String tipe,
+	public DaftarMasukDetil(DaftarMasukDetilId id, String kdBarang, String namaBarang, String kdKategori, String merk, String tipe,
 			BigDecimal jumlah, BigDecimal hargaSatuan, String mataUang, String satuan, BigDecimal totalHarga,
 			String noBuktiTerima, Date tanggalBuktiTerima, String spkPerjanjian, String tahunPembuatan,
 			String keterangan) {
 		this.id = id;
 		this.kdBarang = kdBarang;
 		this.namaBarang = namaBarang;
+		this.kdKategori = kdKategori;
 		this.merk = merk;
 		this.tipe = tipe;
 		this.jumlah = jumlah;
@@ -301,6 +302,21 @@ public class DaftarMasukDetil {
 	 */
 	public void setKeterangan(String keterangan) {
 		this.keterangan = keterangan;
-	}	
-			
+	}
+
+	public String getKdKategori() {
+		return kdKategori;
+	}
+
+	public void setKdKategori(String kdKategori) {
+		this.kdKategori = kdKategori;
+	}
+
+	public DaftarMasuk getDaftarMasuk() {
+		return daftarMasuk;
+	}
+
+	public void setDaftarMasuk(DaftarMasuk daftarMasuk) {
+		this.daftarMasuk = daftarMasuk;
+	}
 }

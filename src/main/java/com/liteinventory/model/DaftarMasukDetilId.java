@@ -19,6 +19,10 @@ public class DaftarMasukDetilId implements Serializable {
 	public DaftarMasukDetilId() {		
 	}
 
+	public DaftarMasukDetilId(long idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
 	public DaftarMasukDetilId(long idMasuk, int noItem) {
 		this.idMasuk = idMasuk;
 		this.noItem = noItem;

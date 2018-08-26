@@ -1,7 +1,7 @@
 # Lite Inventory
 
 This project is an ongoing simple inventory project which uses Spring Boot, Bootstrap and Thymeleaf. 
-It uses H2 database with Liquibase for managing database change logs.
+It uses H2 database with Flyway for managing database change logs.
 
 How to start the application
 ---

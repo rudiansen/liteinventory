@@ -2,24 +2,10 @@ package com.liteinventory.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +18,7 @@ public class DaftarMasuk {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="doc_id_seq")
 	@SequenceGenerator(name="doc_id_seq", sequenceName="doc_id_seq", allocationSize=1)
-	@Column(name="ID_MASUK", unique = true, nullable = false)
+	@Column(name = "ID_MASUK", nullable = false)
 	private long idMasuk;
 	
 	@Column(name="ID_PERUSAHAAN", nullable=false, length=12)
@@ -58,9 +44,8 @@ public class DaftarMasuk {
 	@Column(name="SERVER_DATETIME", nullable=false)
 	private Timestamp serverDatetime;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REMOVE})
-	@JoinTable(name="DAFTAR_MASUK_DETIL", joinColumns = {@JoinColumn(name = "ID_MASUK")})
-	private Collection<DaftarMasukDetil> daftarMasukDetil = new ArrayList<DaftarMasukDetil>(0);
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "daftarMasuk", cascade = {CascadeType.REMOVE})
+	private List<DaftarMasukDetil> daftarMasukDetil = new ArrayList<DaftarMasukDetil>(0);
 	
 	public DaftarMasuk() {		
 	}
@@ -162,13 +147,13 @@ public class DaftarMasuk {
 	/**
 	 * @return the daftarMasukDetil
 	 */	
-	public Collection<DaftarMasukDetil> getDaftarMasukDetil() {
+	public List<DaftarMasukDetil> getDaftarMasukDetil() {
 		return daftarMasukDetil;
 	}
 	/**
 	 * @param daftarMasukDetil the daftarMasukDetil to set
 	 */
-	public void setDaftarMasukDetil(Collection<DaftarMasukDetil> daftarMasukDetil) {
+	public void setDaftarMasukDetil(List<DaftarMasukDetil> daftarMasukDetil) {
 		this.daftarMasukDetil = daftarMasukDetil;
 	}	
 	

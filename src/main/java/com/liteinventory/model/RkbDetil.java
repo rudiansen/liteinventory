@@ -2,12 +2,7 @@ package com.liteinventory.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="rkb_detil")
@@ -58,8 +53,12 @@ public class RkbDetil {
 	
 	@Column(name="KETERANGAN", nullable=true, length=255)
 	private String keterangan;
-	
-	public RkbDetil() {		
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Rkb.idRkb", nullable = false, insertable = false, updatable = false)
+	private Rkb rkb;
+
+	public RkbDetil() {
 	}
 
 	public RkbDetil(RkbDetilId id, String kdBarang, String namaBarang, String merk, String tipe, String ukuran,
@@ -274,6 +273,13 @@ public class RkbDetil {
 	 */
 	public void setKdKategori(String kdKategori) {
 		this.kdKategori = kdKategori;
-	}	
-	
+	}
+
+	public Rkb getRkb() {
+		return rkb;
+	}
+
+	public void setRkb(Rkb rkb) {
+		this.rkb = rkb;
+	}
 }

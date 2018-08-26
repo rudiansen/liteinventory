@@ -15,16 +15,31 @@
     	
     	<div class="span10">
     		<form class="form-horizontal" th:object="${daftarMasukDetil}" th:action="@{/daftarmasukdetil}" method="post">
-    			<h4><!-- <a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt;  --> Barang</h4>    			      			     
-    			  <input type="hidden" th:value="*{id.idMasuk}" th:attr="name='idMasuk'"/>
-    			  <input type="hidden" th:value="*{id.noItem}" th:attr="name='noItem'"/>
-    			   			    			 				  
+    			<h3><a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt; Barang</h3>
+				<input type="hidden" th:field="*{id}"/>
+
+				<div class="control-group">
+					<label class="control-label" for="kdBarang">Kode Barang</label>
+					<div class="controls">
+						<input type="text" maxLength="6" th:field="*{kdBarang}"/>
+					</div>
+				</div>
 				  <div class="control-group">
 				    <label class="control-label" for="namaBarang">Nama</label>
 				    <div class="controls">
 				      <input type="text" maxLength="30" th:field="*{namaBarang}"/>			      
 				    </div>
 				  </div>
+                <div class="control-group">
+                    <label class="control-label" for="kdKategori">Jenis</label>
+                    <div class="controls">
+                        <select th:field="*{kdKategori}">
+                            <option th:each="jenis : ${jenisbarangs}"
+                                    th:value="${jenis.kdKategori}"
+                                    th:text="${jenis.nama}"></option>
+                        </select>
+                    </div>
+                </div>
 				  <div class="control-group">
 				    <label class="control-label" for="satuan">Satuan</label>
 				    <div class="controls">

@@ -2,21 +2,9 @@ package com.liteinventory.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="rkb")
@@ -26,6 +14,7 @@ public class Rkb {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="doc_id_seq")
 	@SequenceGenerator(name="doc_id_seq", sequenceName="doc_id_seq", allocationSize=1)
+	@Column(name = "ID_RKB", nullable = false)
 	private long idRkb;
 	
 	@Column(name="ID_PERUSAHAAN", nullable=false, length=12)
@@ -55,9 +44,8 @@ public class Rkb {
 	@Column(name="SERVER_DATETIME", nullable=false)
 	private Timestamp serverDatetime;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.REMOVE})
-	@JoinTable(name="RKB_DETIL", joinColumns = {@JoinColumn(name = "ID_RKB")})
-	private Collection<RkbDetil> rkbDetil = new ArrayList<RkbDetil>(0);
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "rkb", cascade= {CascadeType.REMOVE})
+	private List<RkbDetil> rkbDetil = new ArrayList<RkbDetil>(0);
 	
 	public Rkb() {		
 	}
@@ -199,14 +187,14 @@ public class Rkb {
 	/**
 	 * @return the rkbDetil
 	 */	
-	public Collection<RkbDetil> getRkbDetil() {
+	public List<RkbDetil> getRkbDetil() {
 		return rkbDetil;
 	}
 
 	/**
 	 * @param rkbDetil the rkbDetil to set
 	 */
-	public void setRkbDetil(Collection<RkbDetil> rkbDetil) {
+	public void setRkbDetil(List<RkbDetil> rkbDetil) {
 		this.rkbDetil = rkbDetil;
 	}
 
