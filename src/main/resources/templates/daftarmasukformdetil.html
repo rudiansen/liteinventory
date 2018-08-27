@@ -13,7 +13,7 @@
 	<div class="row-fluid">
     	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
     	
-    	<div class="span10">
+    	<div class="span9">
     		<form class="form-horizontal" th:object="${daftarMasukDetil}" th:action="@{/daftarmasukdetil}" method="post">
     			<h3><a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt; Detil Barang</h3>
 				<input type="hidden" th:field="*{id}"/>

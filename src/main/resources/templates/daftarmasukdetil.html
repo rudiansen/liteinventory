@@ -13,7 +13,7 @@
 	<div class="row-fluid">
     	<!--/*/ <th:block th:include="fragments/menu :: left-menu"></th:block> /*/-->
     	
-    	<div class="span10">
+    	<div class="span9">
 			<h3><a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt; Detil Barang</h3>
 			<p><a href="#" th:href="@{'/daftarmasuk/' + ${daftarMasukDetil.id.idMasuk} + '/detil/new'}">Add</a></p>
 
@@ -35,9 +35,9 @@
 		            	<td th:text="${detil.kdBarang}">Kode Barang</td>                
 		                <td th:text="${detil.namaBarang}">Nama</td>
 		                <td th:text="${detil.satuan}">Satuan</td>
-		                <td th:text="${detil.jumlah}">Jumlah</td>
-		                <td th:text="${detil.hargaSatuan}">Harga Satuan</td>
-		                <td th:text="${detil.totalHarga}">Jumlah Harga</td>			                                        
+		                <td th:text="${#numbers.formatDecimal(detil.jumlah, 0, 'COMMA', 2, 'POINT')}">Jumlah</td>
+		                <td th:text="${#numbers.formatDecimal(detil.hargaSatuan, 0, 'COMMA', 2, 'POINT')}">Harga Satuan</td>
+		                <td th:text="${#numbers.formatDecimal(detil.totalHarga, 0, 'COMMA', 2, 'POINT')}">Jumlah Harga</td>			                                        
 		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/' + detil.id.noItem}">Edit</a></td>
 		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/delete/' + detil.id.noItem}">Delete</a></td>
 		            </tr>

@@ -44,7 +44,7 @@ public class Rkb {
 	@Column(name="SERVER_DATETIME", nullable=false)
 	private Timestamp serverDatetime;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy = "rkb", cascade= {CascadeType.REMOVE})
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "rkb", cascade= {CascadeType.ALL})
 	private List<RkbDetil> rkbDetil = new ArrayList<RkbDetil>(0);
 	
 	public Rkb() {		

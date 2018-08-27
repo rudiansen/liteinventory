@@ -44,7 +44,7 @@ public class DaftarMasuk {
 	@Column(name="SERVER_DATETIME", nullable=false)
 	private Timestamp serverDatetime;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy = "daftarMasuk", cascade = {CascadeType.REMOVE})
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "daftarMasuk", cascade = {CascadeType.ALL})
 	private List<DaftarMasukDetil> daftarMasukDetil = new ArrayList<DaftarMasukDetil>(0);
 	
 	public DaftarMasuk() {		

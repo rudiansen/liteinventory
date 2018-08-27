@@ -156,10 +156,23 @@ public class DaftarMasukController {
 				
 		DaftarMasuk dm = dmService.getDaftarMasukById(daftarMasukDetil.getId().getIdMasuk()).get();
 		List<DaftarMasukDetil> dmDetils = dm.getDaftarMasukDetil();
-		int count = dm.getDaftarMasukDetil().size();
 		
-		daftarMasukDetil.getId().setNoItem(count+1); // Increment by 1
-		
+		if (!dmDetils.isEmpty()) {
+			Optional<DaftarMasukDetil> dmDetil = dmDetils.stream()
+					.filter(d -> d.getId().getNoItem() == daftarMasukDetil.getId().getNoItem())					
+					.findFirst();
+			if (dmDetil.isPresent()) {
+				// Remove existing detil
+				dmDetils.remove(dmDetil.get());				
+			}
+				
+		} else {
+			int count = dm.getDaftarMasukDetil().size();
+			
+			daftarMasukDetil.getId().setNoItem(count+1); // Increment by 1
+			
+		}
+				
 		dmDetils.add(daftarMasukDetil);
 		dm.setDaftarMasukDetil(dmDetils);
 		
@@ -181,6 +194,6 @@ public class DaftarMasukController {
 		
 		dmService.deleteDetil(new DaftarMasukDetilId(idMasuk, noItem));
 		
-		return "redirect:/daftarmasuk";
+		return "redirect:/daftarmasuk/" + idMasuk + "/detil";
 	}
 }
