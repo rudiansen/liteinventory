@@ -91,7 +91,7 @@ public class DaftarMasukController {
 		if (noItem.isPresent()) {
 			model.addAttribute("daftarMasukDetil", dmDetils.stream()
 					.filter(d -> d.getId().getNoItem() == noItem.get())
-					.findFirst());
+					.findFirst().get());
 		} else {
 			DaftarMasukDetil dmDetil = new DaftarMasukDetil();
 			DaftarMasukDetilId id = new DaftarMasukDetilId();
@@ -153,21 +153,33 @@ public class DaftarMasukController {
 			
 			return "daftarmasukformdetil";
 		}
-		
+				
 		DaftarMasuk dm = dmService.getDaftarMasukById(daftarMasukDetil.getId().getIdMasuk()).get();
+		List<DaftarMasukDetil> dmDetils = dm.getDaftarMasukDetil();
 		int count = dm.getDaftarMasukDetil().size();
 		
-		daftarMasukDetil.getId().setNoItem(count);
+		daftarMasukDetil.getId().setNoItem(count+1); // Increment by 1
 		
-		dmService.saveDetil(daftarMasukDetil);
+		dmDetils.add(daftarMasukDetil);
+		dm.setDaftarMasukDetil(dmDetils);
 		
-		return "redirect:/daftarmasuk/"+ daftarMasukDetil.getId().getIdMasuk() + "/detil/" + daftarMasukDetil.getId().getNoItem();
+		dmService.save(dm);
+		
+		return "redirect:/daftarmasuk/"+ daftarMasukDetil.getId().getIdMasuk() + "/detil";
 	}
 	
 	@RequestMapping("daftarmasuk/delete/{idMasuk}")
 	public String delete(@PathVariable Long idMasuk) {
 		
 		dmService.delete(idMasuk);
+		
+		return "redirect:/daftarmasuk";
+	}
+	
+	@RequestMapping("daftarmasuk/{idMasuk}/detil/delete/{noItem}")
+	public String deleteDetil(@PathVariable Long idMasuk, @PathVariable Integer noItem) {
+		
+		dmService.deleteDetil(new DaftarMasukDetilId(idMasuk, noItem));
 		
 		return "redirect:/daftarmasuk";
 	}

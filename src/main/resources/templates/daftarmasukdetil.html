@@ -33,12 +33,12 @@
 		            <tr th:each="detil, row : ${daftarMasukDetils}">
 		            	<td th:text="${row.index+1}">No.</td>
 		            	<td th:text="${detil.kdBarang}">Kode Barang</td>                
-		                <td th:text="${detil.nama}">Nama</td>
+		                <td th:text="${detil.namaBarang}">Nama</td>
 		                <td th:text="${detil.satuan}">Satuan</td>
 		                <td th:text="${detil.jumlah}">Jumlah</td>
 		                <td th:text="${detil.hargaSatuan}">Harga Satuan</td>
-		                <td th:text="${detil.jumlahHarga}">Jumlah Harga</td>			                                        
-		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/edit/' + detil.id.noItem}">Edit</a></td>
+		                <td th:text="${detil.totalHarga}">Jumlah Harga</td>			                                        
+		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/' + detil.id.noItem}">Edit</a></td>
 		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/delete/' + detil.id.noItem}">Delete</a></td>
 		            </tr>
 		        </table>

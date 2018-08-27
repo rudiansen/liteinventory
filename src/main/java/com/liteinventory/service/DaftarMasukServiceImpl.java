@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.liteinventory.model.DaftarMasuk;
 import com.liteinventory.model.DaftarMasukDetil;
+import com.liteinventory.model.DaftarMasukDetilId;
 import com.liteinventory.repository.DaftarMasukDetilRepository;
 import com.liteinventory.repository.DaftarMasukRepository;
 
@@ -58,4 +59,10 @@ public class DaftarMasukServiceImpl implements DaftarMasukService {
 		return dmdRepo.save(daftarMasukDetil);
 	}
 
+	@Override
+	public void deleteDetil(DaftarMasukDetilId id) {
+		
+		dmdRepo.deleteById(id);
+		
+	}
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.liteinventory.model.DaftarMasuk;
 import com.liteinventory.model.DaftarMasukDetil;
+import com.liteinventory.model.DaftarMasukDetilId;
 
 public interface DaftarMasukService {
 
@@ -17,4 +18,6 @@ public interface DaftarMasukService {
 	void delete(Long idMasuk);
 	
 	DaftarMasukDetil saveDetil(DaftarMasukDetil daftarMasukDetil);
+	
+	void deleteDetil(DaftarMasukDetilId id);
 }
