@@ -54,6 +54,9 @@ public class BarangController {
 				default:
 					break;
 			}
+		} else {
+			model.addAttribute("success_message", null);
+			model.addAttribute("error_message", null);
 		}
 		
 		return "barang";
