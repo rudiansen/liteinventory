@@ -15,17 +15,17 @@
     	
     	<div class="span9">
     		<h3>Daftar Masuk</h3>
-    		<p><a href="#" th:href="@{/daftarmasuk/new}">Add</a></p>
+    		<p><a href="#" th:href="@{/daftarmasuk/new}">Tambah</a></p>
     		
     		<div th:if="${not #lists.isEmpty(daftarMasuks)}">		        
 		        
 		        <div class="alert alert-success" th:if="${success_message != null}">
 				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
-				  	<strong>Success!</strong> Daftar Masuk has been saved successfully.
+				  	Daftar Masuk berhasil disimpan.
 				</div>				
 				<div class="alert alert-error" th:if="${error_message != null}">
 				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
-				  	<strong>Error!</strong> Daftar Masuk is failed to be saved.
+				  	Daftar Masuk gagal disimpan.
 				</div>
 				
 		        <table class="table table-hover table-condensed">
@@ -35,24 +35,71 @@
 		                <th>Dari</th>
 		                <th>No. Faktur</th>
 		                <th>Tanggal Faktur</th>		                         
-		                <th>Edit</th>
-		                <th>Delete</th>
+		                <th></th>
+		                <th></th>
 		            </tr>
 		            <tr th:each="daftarMasuk, row : ${daftarMasuks}">
 		            	<td th:text="${row.index+1}">No.</td>                
 		                <td th:text="${#dates.format(daftarMasuk.tanggal, 'MM/dd/yyyy')}">Tanggal</td>
 		                <td th:text="${daftarMasuk.dari}">Dari</td>
-		                <td th:text="${daftarMasuk.noFaktur}">No. Faktur</td>
+		                <td id="noFaktur" th:text="${daftarMasuk.noFaktur}">No. Faktur</td>
 		                <td th:text="${#dates.format(daftarMasuk.tanggalFaktur, 'MM/dd/yyyy')}">Tanggal Faktur</td>		                                         
-		                <td><a th:href="${'/daftarmasuk/edit/' + daftarMasuk.idMasuk}">Edit</a></td>
-		                <td><a th:href="${'/daftarmasuk/delete/' + daftarMasuk.idMasuk}">Delete</a></td>
+		                <td><a th:href="${'/daftarmasuk/edit/' + daftarMasuk.idMasuk}">Ubah</a></td>	              
+		                <td><a id="deleteLink" href="#" th:value="${'/daftarmasuk/delete/' + daftarMasuk.idMasuk}" data-toggle="modal" data-target="#confirm-delete">Hapus</a></td>
 		            </tr>
 		        </table>
 		
+		    </div>
+
+		    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		        <div class="modal-dialog">
+		            <div class="modal-content">
+		            
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                    <h4 class="modal-title" id="myModalLabel">Pesan Konfirmasi</h4>
+		                </div>
+		            
+		                <div class="modal-body">
+		                    <p>Apakah Anda yakin akan menghapus data daftar masuk?</p>
+		                    <div class="to-delete-data"></div>		                   		                    
+		                </div>
+		                
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+		                    <a class="btn btn-danger btn-ok" data-dismiss="modal">Ya</a>
+		                </div>
+		            </div>
+		        </div>
 		    </div>
     	</div>
     </div>    
 </div>
 
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {        	
+            $('.to-delete-data').html('Daftar Masuk dengan Nomor Faktur = <strong>' + document.getElementById('noFaktur').textContent + '</strong>');
+        });
+        
+        $('#confirm-delete').on('click', '.btn-ok', function(e) {        	
+            	var strUrl = document.getElementById('deleteLink').attributes[2].value;            
+            	$.ajax({url: strUrl, 
+            		type: 'POST',
+            		success: function(data){
+            			location.reload();
+            		}
+            	})
+            	                      
+        	}                	
+        );
+        
+        window.setTimeout(function() {
+		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 4000);
+    </script>
 </body>
 </html>

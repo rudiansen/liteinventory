@@ -15,17 +15,17 @@
     	
     	<div class="span9">					
     		<h3>Daftar Barang</h3>
-    		<p><a href="#" th:href="@{/barang/new}">Add</a></p>
+    		<p><a href="#" th:href="@{/barang/new}">Tambah</a></p>
     		
     		<div th:if="${not #lists.isEmpty(barangs)}">		       
 		        
 		        <div id="success-alert" class="alert alert-success" th:if="${success_message != null}">
 				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
-				  	<strong>Success!</strong> Barang has been saved successfully.
+				  	Barang telah berhasil disimpan.
 				</div>				
 				<div id="error-alert" class="alert alert-error" th:if="${error_message != null}">
 				  	<button type="button" class="close" data-dismiss="alert">&times;</button>
-				  	<strong>Error!</strong> Barang is failed to be saved.
+				  	Barang gagal disimpan.
 				</div>
 				
 		        <table class="table table-hover table-condensed">
@@ -38,8 +38,8 @@
 		                <th>Tipe</th>
 		                <th>Ukuran</th>
 		                <th>Satuan</th>              
-		                <th>Edit</th>
-		                <th>Delete</th>
+		                <th></th>
+		                <th></th>
 		            </tr>
 		            <tr th:each="barang, row : ${barangs}">
 		            	<td th:text="${row.index+1}">No.</td>
@@ -50,8 +50,8 @@
 		                <td th:text="${barang.tipe}">Tipe</td>
 		                <td th:text="${barang.ukuran}">Ukuran</td>
 		                <td th:text="${barang.deskripsiSatuan}">Satuan</td>                            
-		                <td><a th:href="${'/barang/edit/' + barang.kdBarang}">Edit</a></td>		                
-		                <td><a id="deleteLink" href="#" th:value="${'/barang/delete/' + barang.kdBarang}" data-toggle="modal" data-target="#confirm-delete">Delete</a></td>
+		                <td><a th:href="${'/barang/edit/' + barang.kdBarang}">Ubah</a></td>		                
+		                <td><a id="deleteLink" href="#" th:value="${'/barang/delete/' + barang.kdBarang}" data-toggle="modal" data-target="#confirm-delete">Hapus</a></td>
 		            </tr>
 		        </table>
 		
@@ -63,17 +63,17 @@
 		            
 		                <div class="modal-header">
 		                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+		                    <h4 class="modal-title" id="myModalLabel">Pesan Konfirmasi</h4>
 		                </div>
 		            
 		                <div class="modal-body">
-		                    <p>Are You sure you want to delete the record?</p>
+		                    <p>Apakah Anda yakin akan menghapus data barang?</p>
 		                    <div class="to-delete-data"></div>		                   		                    
 		                </div>
 		                
 		                <div class="modal-footer">
-		                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-		                    <a class="btn btn-danger btn-ok" data-dismiss="modal">Yes</a>
+		                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+		                    <a class="btn btn-danger btn-ok" data-dismiss="modal">Ya</a>
 		                </div>
 		            </div>
 		        </div>
@@ -102,9 +102,11 @@
         	}                	
         );
         
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-            $("#success-alert").slideUp(500);
-        });
+        window.setTimeout(function() {
+		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 4000);
     </script>
     
 </body>

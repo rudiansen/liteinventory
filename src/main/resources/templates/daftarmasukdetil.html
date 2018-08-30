@@ -15,7 +15,7 @@
     	
     	<div class="span9">
 			<h3><a th:href="${'/daftarmasuk/edit/' + daftarMasukDetil.id.idMasuk}">Daftar Masuk</a> &gt; Detil Barang</h3>
-			<p><a href="#" th:href="@{'/daftarmasuk/' + ${daftarMasukDetil.id.idMasuk} + '/detil/new'}">Add</a></p>
+			<p><a href="#" th:href="@{'/daftarmasuk/' + ${daftarMasukDetil.id.idMasuk} + '/detil/new'}">Tambah</a></p>
 
 			<div th:if="${not #lists.isEmpty(daftarMasukDetils)}">		       		        			       
 		        <table class="table table-hover table-condensed">
@@ -27,32 +27,77 @@
 		                <th>Jumlah</th>
 		                <th>Harga Satuan</th>
 		                <th>Jumlah Harga</th>			                          
-		                <th>Edit</th>
-		                <th>Delete</th>
+		                <th></th>
+		                <th></th>
 		            </tr>
 		            <tr th:each="detil, row : ${daftarMasukDetils}">
 		            	<td th:text="${row.index+1}">No.</td>
 		            	<td th:text="${detil.kdBarang}">Kode Barang</td>                
-		                <td th:text="${detil.namaBarang}">Nama</td>
+		                <td id="namaBarang" th:text="${detil.namaBarang}">Nama</td>
 		                <td th:text="${detil.satuan}">Satuan</td>
 		                <td th:text="${#numbers.formatDecimal(detil.jumlah, 0, 'COMMA', 2, 'POINT')}">Jumlah</td>
 		                <td th:text="${#numbers.formatDecimal(detil.hargaSatuan, 0, 'COMMA', 2, 'POINT')}">Harga Satuan</td>
 		                <td th:text="${#numbers.formatDecimal(detil.totalHarga, 0, 'COMMA', 2, 'POINT')}">Jumlah Harga</td>			                                        
-		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/' + detil.id.noItem}">Edit</a></td>
-		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/delete/' + detil.id.noItem}">Delete</a></td>
+		                <td><a th:href="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/' + detil.id.noItem}">Ubah</a></td>
+		                <td><a id="deleteLink" href="#" th:value="${'/daftarmasuk/' + detil.id.idMasuk +'/detil/delete/' + detil.id.noItem}" data-toggle="modal" data-target="#confirm-delete">Hapus</a></td>
 		            </tr>
 		        </table>
 		
 		    </div>
-			        		
+			     
+			<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		        <div class="modal-dialog">
+		            <div class="modal-content">
+		            
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                    <h4 class="modal-title" id="myModalLabel">Pesan Konfirmasi</h4>
+		                </div>
+		            
+		                <div class="modal-body">
+		                    <p>Apakah Anda yakin akan menghapus data barang?</p>
+		                    <div class="to-delete-data"></div>		                   		                    
+		                </div>
+		                
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+		                    <a class="btn btn-danger btn-ok" data-dismiss="modal">Ya</a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+
     	</div>
     </div>
         
 </div>
-
-	<script src="http://code.jquery.com/jquery.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/bootstrap-datepicker.js"></script>
+	
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>    
+	<script src="/js/bootstrap.min.js"></script>
+	<script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {        	
+            $('.to-delete-data').html('Nama Barang = <strong>' + document.getElementById('namaBarang').textContent + '</strong>');
+        });
+        
+        $('#confirm-delete').on('click', '.btn-ok', function(e) {        	
+            	var strUrl = document.getElementById('deleteLink').attributes[2].value;            
+            	$.ajax({url: strUrl, 
+            		type: 'POST',
+            		success: function(data){
+            			location.reload();
+            		}
+            	})
+            	                      
+        	}                	
+        );
+        
+        window.setTimeout(function() {
+		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 4000);
+    </script>
     
 </body>
 </html>
