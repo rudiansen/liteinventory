@@ -30,9 +30,11 @@
 		            <tr th:each="jenis, row : ${jenisbarangs}">
 		            	<td th:text="${row.index+1}">No.</td> 
 		            	<td th:text="${jenis.kdKategori}">Kode</td>                
-		                <td id="jenisBarang" th:text="${jenis.nama}">Jenis Barang</td>                            
+		                <td name="jenisBarang" th:text="${jenis.nama}">Jenis Barang</td>                            
 		                <td><a th:href="${'/jenisbarang/edit/' + jenis.kdKategori}">Ubah</a></td>
-		                <td><a id="deleteLink" href="#" th:value="${'/jenisbarang/delete/' + jenis.kdKategori}" data-toggle="modal" data-target="#confirm-delete">Hapus</a></td>
+		                <td name="deleteLink" th:value="${'/jenisbarang/delete/' + jenis.kdKategori}">
+		                	<a href="#" th:onclick="'javascript:openBSModal(\'' + ${row.index} + '\');'">Hapus</a>
+		                </td>
 		            </tr>
 		        </table>
 		
@@ -66,21 +68,25 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {        	
-            $('.to-delete-data').html('Jenis Barang = <strong>' + document.getElementById('jenisBarang').textContent + '</strong>');
+		function openBSModal(id) {			
+			indexRecord = id;			
+			$('#confirm-delete').modal({cache:false}, 'show');
+		};
+		
+        $('#confirm-delete').on('show.bs.modal', function() {        	        	
+            $('.to-delete-data').html('Jenis Barang = <strong>' + document.getElementsByName('jenisBarang')[indexRecord].textContent + '</strong>');
         });
         
-        $('#confirm-delete').on('click', '.btn-ok', function(e) {        	
-            	var strUrl = document.getElementById('deleteLink').attributes[2].value;            
-            	$.ajax({url: strUrl, 
-            		type: 'POST',
-            		success: function(data){
-            			location.reload();
-            		}
-            	})
-            	                      
-        	}                	
-        );
+        $('#confirm-delete').on('click', '.btn-ok', function(e) {        	        	
+           	var strUrl = document.getElementsByName('deleteLink')[indexRecord].attributes.value.value;           	
+           	$.ajax({url: strUrl, 
+           		type: 'POST',
+           		success: function(data){
+           			location.reload();
+           		}
+           	})
+           	                      
+       	});
         
         window.setTimeout(function() {
 		    $(".alert").fadeTo(500, 0).slideUp(500, function(){

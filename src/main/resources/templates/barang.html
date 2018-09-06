@@ -44,14 +44,16 @@
 		            <tr th:each="barang, row : ${barangs}">
 		            	<td th:text="${row.index+1}">No.</td>
 		            	<td th:text="${barang.kdBarang}">Kode Barang</td>                
-		                <td id="namaBarang" th:text="${barang.nama}">Nama</td>
+		                <td name="namaBarang" th:text="${barang.nama}">Nama</td>
 		                <td th:text="${barang.jenisBarang}">Jenis</td>
 		                <td th:text="${barang.merk}">Merk</td>
 		                <td th:text="${barang.tipe}">Tipe</td>
 		                <td th:text="${barang.ukuran}">Ukuran</td>
 		                <td th:text="${barang.deskripsiSatuan}">Satuan</td>                            
 		                <td><a th:href="${'/barang/edit/' + barang.kdBarang}">Ubah</a></td>		                
-		                <td><a id="deleteLink" href="#" th:value="${'/barang/delete/' + barang.kdBarang}" data-toggle="modal" data-target="#confirm-delete">Hapus</a></td>
+		                <td name="deleteLink" th:value="${'/barang/delete/' + barang.kdBarang}">
+		                	<a href="#" th:onclick="'javascript:openBSModal(\'' + ${row.index} + '\');'">Hapus</a>
+		                </td>
 		            </tr>
 		        </table>
 		
@@ -86,21 +88,25 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script>
+		function openBSModal(id) {			
+			indexRecord = id;			
+			$('#confirm-delete').modal({cache:false}, 'show');
+		};
+		
         $('#confirm-delete').on('show.bs.modal', function(e) {        	
-            $('.to-delete-data').html('Nama Barang = <strong>' + document.getElementById('namaBarang').textContent + '</strong>');
+            $('.to-delete-data').html('Nama Barang = <strong>' + document.getElementsByName('namaBarang')[indexRecord].textContent + '</strong>');
         });
         
         $('#confirm-delete').on('click', '.btn-ok', function(e) {        	
-            	var strUrl = document.getElementById('deleteLink').attributes[2].value;            
-            	$.ajax({url: strUrl, 
-            		type: 'POST',
-            		success: function(data){
-            			location.reload();
-            		}
-            	})
-            	                      
-        	}                	
-        );
+        	var strUrl = document.getElementsByName('deleteLink')[indexRecord].attributes.value.value;            
+           	$.ajax({url: strUrl, 
+           		type: 'POST',
+           		success: function(data){
+           			location.reload();
+           		}
+           	})
+           	                      
+       	});
         
         window.setTimeout(function() {
 		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
