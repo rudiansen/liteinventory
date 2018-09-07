@@ -16,11 +16,15 @@
     	<div class="span9">
     		<form class="form-horizontal" th:object="${kategoriBarang}" th:action="@{/jenisbarang}" method="post">
 			  <h3>Jenis Barang</h3>
+			  
+			  <div class="alert alert-error" th:if="${#fields.hasErrors('*')}">
+			  	<p th:each="error : ${#fields.errors('*')}" th:text="${error}">Validation error</p>
+			  </div>
+			  
 			  <div class="control-group">
 			    <label class="control-label" for="kdKategori">Kode</label>
 			    <div class="controls">
-			    	<input type="text" maxLength="5" th:field="*{kdKategori}"/>
-			    	<p class="text-error" th:if="${#fields.hasErrors('kdKategori')}" th:errors="*{kdKategori}">Error</p>			      
+			    	<input type="text" maxLength="5" th:field="*{kdKategori}"/>			    				     
 			    </div>
 			  </div>
 			  <div class="control-group">
